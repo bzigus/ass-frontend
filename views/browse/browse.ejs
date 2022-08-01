@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASS Dashboard | Browse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        .card-img-top {
+            max-width: 100% !important;
+        }
+        .image-link:hover {
+            border: .5px solid black !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid text-center" style="
+padding-top: 10px;
+max-width: 1000px;
+">
+    <div class="row images-header">
+        <div class="col-md-2 d-flex flex-column justify-content-center">
+            <a href="/dashboard" role="button">Refresh</a>
+        </div>
+        <div class="col-md-8 d-flex flex-column justify-content-center">
+            <h1>Logged in as <%= user.username %>.</h1>
+        </div>
+        <div class="col-md-2 d-flex flex-column justify-content-center">
+            <a href="/dashboard/login" role="button">Logout</a>
+        </div>
+        <hr>
+    </div>
+    <% var imagesPerRow = 3 %>
+    <% var imageCount = Object.entries(images).length %>
+    <% for(var rowIndex = 0; rowIndex < (imageCount / imagesPerRow) + 1; rowIndex++) { %>
+        <div class="row">
+            <% for(var colIndex = 0; colIndex < imagesPerRow; colIndex++) { %>
+                <% var realIndex = (rowIndex * imagesPerRow) + colIndex %>
+                <% if(realIndex < imageCount) {%>
+                    <% var entry = Object.entries(images)[realIndex] %>
+                    <% var id = entry[0] %>
+                    <% var image = entry[1] %>
+                    <div class="col-md-4">
+                        <div class="card" style="margin-bottom: 15px">
+                            <div class="image-link">
+                                <a href="/<%= id %>">
+                                    <img class="card-img-top" src="/<%= id %>/thumbnail" alt="Card image cap">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= image.originalname %></h5>
+                                <p class="card-text">Image uploaded on <%= new Date(image.timestamp)
+                                            .toISOString()
+                                            .substring(0, 10) %></p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Uploaded by <%= users[image.token].username || "Unknown user" %></li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="/<%= id %>/delete/<%= image.deleteId %>" class="card-link">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    <% } %>
+    <div class="row">
+        <p>ASS Dashboard | Created by ZorTik</p>
+    </div>
+</div>
+</body>
+</html>

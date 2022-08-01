@@ -1,0 +1,21 @@
+{
+  "name": "ass-frontend",
+  "version": "1.0.0",
+  "description": "ASS frontend site by ZorTik.",
+  "main": "router.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ZorTik",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "fresh": "^0.5.2",
+    "fresh-require": "^1.0.3",
+    "multer": "^1.4.5-lts.1",
+    "pug": "^3.0.2"
+  }
+}
